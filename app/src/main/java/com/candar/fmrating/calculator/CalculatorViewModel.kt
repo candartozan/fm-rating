@@ -10,13 +10,10 @@ class CalculatorViewModel : ViewModel() {
     private val _state = MutableStateFlow(CalculatorState())
     val state = _state.asStateFlow()
 
-    fun changeValue(id: Int, value: String) {
-        val finalValue = if (value.isEmpty()) ""
-        else value.toIntOrNull()?.coerceIn(0, 20)?.toString() ?: return
-
+    fun changeValue(id: Int, value: Float) {
         val newAttributes = _state.value.attributes.toMutableSet().map {
             if (it.id == id) {
-                it.copy(value = finalValue)
+                it.copy(value = value.coerceIn(0f, 20f))
             } else it
         }.toSet()
 
@@ -24,12 +21,12 @@ class CalculatorViewModel : ViewModel() {
         _state.update { it.copy(attributes = newAttributes, rating = newRating) }
     }
 
-    private fun calculateRating(attributes: Set<PlayerAttribute>): Double {
-        var totalScore = 0.0
-        var totalWeight = 0.0
+    private fun calculateRating(attributes: Set<PlayerAttribute>): Float {
+        var totalScore = 0f
+        var totalWeight = 0f
 
         for (attribute in attributes) {
-            val attributeValue = attribute.value.toDoubleOrNull() ?: 0.0
+            val attributeValue = attribute.value
 
             totalScore += attributeValue * attribute.weight
             totalWeight += attribute.weight
@@ -38,7 +35,7 @@ class CalculatorViewModel : ViewModel() {
         return if (totalWeight > 0) {
             totalScore / totalWeight
         } else {
-            0.0
+            0f
         }
     }
 
@@ -56,19 +53,5 @@ class CalculatorViewModel : ViewModel() {
 
     fun deletePlayer(id: String) {
         _state.update { it.copy(savedPlayers = it.savedPlayers.filter { player -> player.id != id }) }
-    }
-
-    fun movePlayer(fromIndex: Int, toIndex: Int) {
-        _state.update { currentState ->
-            val updatedList = currentState.savedPlayers.toMutableList()
-
-            if (fromIndex in 0..updatedList.lastIndex && toIndex in 0..updatedList.lastIndex) {
-                val item = updatedList.removeAt(fromIndex)
-                updatedList.add(toIndex, item)
-                currentState.copy(savedPlayers = updatedList)
-            } else {
-                currentState
-            }
-        }
     }
 }

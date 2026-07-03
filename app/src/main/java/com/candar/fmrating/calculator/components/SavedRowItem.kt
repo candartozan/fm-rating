@@ -47,6 +47,6 @@ fun SavedRowItemPreview() {
         modifier = Modifier.fillMaxWidth(), item = SavedPlayer(
             id = "",
             name = "Name",
-            rating = 14.5
+            rating = 14.5f
         ), onDelete = {})
 }
