@@ -1,4 +1,4 @@
-package com.candar.fmrating.calculator.components
+package com.candar.fmrating.presentation.calculator.components
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
@@ -16,7 +16,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.candar.fmrating.calculator.SavedPlayer
+import com.candar.fmrating.presentation.calculator.SavedPlayer
 
 @Composable
 fun SavedRowItem(modifier: Modifier = Modifier, item: SavedPlayer, onDelete: () -> Unit) {

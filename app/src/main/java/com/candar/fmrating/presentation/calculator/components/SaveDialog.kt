@@ -1,4 +1,4 @@
-package com.candar.fmrating.calculator.components
+package com.candar.fmrating.presentation.calculator.components
 
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material3.AlertDialog

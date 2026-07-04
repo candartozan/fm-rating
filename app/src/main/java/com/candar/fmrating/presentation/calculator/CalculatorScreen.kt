@@ -1,9 +1,11 @@
-package com.candar.fmrating.calculator
+package com.candar.fmrating.presentation.calculator
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.safeContent
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
@@ -14,15 +16,15 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.candar.fmrating.calculator.components.AttributeInputList
-import com.candar.fmrating.calculator.components.SaveDialog
-import com.candar.fmrating.calculator.components.SavedRowItem
-import com.candar.fmrating.ui.theme.Typography
+import com.candar.fmrating.presentation.calculator.components.AttributeInputList
+import com.candar.fmrating.presentation.calculator.components.RatingText
+import com.candar.fmrating.presentation.calculator.components.SaveDialog
+import com.candar.fmrating.presentation.calculator.components.SavedRowItem
 
 @Composable
 fun CalculatorScreen(viewModel: CalculatorViewModel = viewModel()) {
@@ -31,24 +33,22 @@ fun CalculatorScreen(viewModel: CalculatorViewModel = viewModel()) {
 
     var showSaveDialog by rememberSaveable { mutableStateOf(false) }
 
-    Scaffold { innerPadding ->
+    Scaffold(contentWindowInsets = WindowInsets.safeContent) { innerPadding ->
         Column(
             modifier = Modifier
                 .verticalScroll(rememberScrollState())
                 .padding(innerPadding)
-                .padding(16.dp), verticalArrangement = Arrangement.spacedBy(16.dp)
+                .padding(4.dp),
+            verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
-            Text(
-                text = "Current Rating: ${"%.1f".format(state.rating)}",
-                style = Typography.headlineMedium,
-                textAlign = TextAlign.Center,
-                modifier = Modifier.fillMaxWidth()
+            RatingText(
+                modifier = Modifier.align(alignment = Alignment.CenterHorizontally),
+                value = "%.1f".format(state.rating)
             )
 
             AttributeInputList(
                 items = attributesList,
                 onValueChange = { id, value -> viewModel.changeValue(id, value) })
-
 
             Button(
                 onClick = { showSaveDialog = true },
@@ -63,7 +63,6 @@ fun CalculatorScreen(viewModel: CalculatorViewModel = viewModel()) {
                     }
                 }
             }
-
 
             if (showSaveDialog) {
                 SaveDialog(

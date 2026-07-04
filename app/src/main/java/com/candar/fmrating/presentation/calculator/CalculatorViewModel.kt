@@ -1,4 +1,4 @@
-package com.candar.fmrating.calculator
+package com.candar.fmrating.presentation.calculator
 
 import androidx.lifecycle.ViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -10,10 +10,10 @@ class CalculatorViewModel : ViewModel() {
     private val _state = MutableStateFlow(CalculatorState())
     val state = _state.asStateFlow()
 
-    fun changeValue(id: Int, value: Float) {
+    fun changeValue(id: Int, value: Int) {
         val newAttributes = _state.value.attributes.toMutableSet().map {
             if (it.id == id) {
-                it.copy(value = value.coerceIn(0f, 20f))
+                it.copy(value = value)
             } else it
         }.toSet()
 

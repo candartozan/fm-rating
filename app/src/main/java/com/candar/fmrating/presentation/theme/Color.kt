@@ -1,4 +1,4 @@
-package com.candar.fmrating.ui.theme
+package com.candar.fmrating.presentation.theme
 
 import androidx.compose.ui.graphics.Color
 

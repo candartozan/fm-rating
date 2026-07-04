@@ -1,6 +1,5 @@
-package com.candar.fmrating.ui.theme
+package com.candar.fmrating.presentation.theme
 
-import android.app.Activity
 import android.os.Build
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.MaterialTheme
