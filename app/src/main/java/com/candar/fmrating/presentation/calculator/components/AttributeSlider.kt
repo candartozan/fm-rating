@@ -14,6 +14,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import kotlin.math.roundToInt
 
 @Composable
 fun AttributeSlider(
@@ -31,7 +32,7 @@ fun AttributeSlider(
             Row(
                 modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween
             ) {
-                Text(text = value.toInt().toString(), color = textColor, style = textStyle)
+                Text(text = value.roundToInt().toString(), color = textColor, style = textStyle)
                 Text(text = title, color = textColor, style = textStyle)
             }
             Slider(
